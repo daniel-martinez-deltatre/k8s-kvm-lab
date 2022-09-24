@@ -42,7 +42,7 @@ Lastly do a **fresh** OS install.  Tested with Ubuntu 18.04.
 
 Kubernetes is IP address hungry, so make sure you have some on your network.
 
-One is needed for the master and must end in 0.  Then one for each worker node starting with 1.  In the example I used 192.168.11.120 through 192.168.11.123 for a total of four addresses.
+One is needed for the master and must end in 0.  Then one for each worker node starting with 1.  In the example I used 172.29.4.20 through 172.29.4.23 for a total of four addresses.
 
 ## Install dependencies
 ```
@@ -84,7 +84,7 @@ KVM needs to run as root, so go ahead and make yourself root
  Open Vagrantfile with your favorite text editor and edit the following line.  Make sure you choose a network block that's good on your network.
  
  ```
- NETWORK_PREFIX="192.168.11.12"
+ NETWORK_PREFIX="172.29.4.2"
  
 ```
  
@@ -132,12 +132,12 @@ Each node is an incrment of 1 from the master.  Add or delete worker nodes as ne
 
 ```
 [kube-masters]
-master1.kube.local ansible_host=192.168.11.120
+master1.kube.local ansible_host=172.29.4.20
 
 [kube-nodes]
-worker1.kube.local ansible_host=192.168.11.121
-worker2.kube.local ansible_host=192.168.11.122
-worker3.kube.local ansible_host=192.168.11.123
+worker1.kube.local ansible_host=172.29.4.21
+worker2.kube.local ansible_host=172.29.4.22
+worker3.kube.local ansible_host=172.29.4.23
 
 [ubuntu:children]
 kube-masters
@@ -176,7 +176,7 @@ worker3.kube.local         : ok=19   changed=16   unreachable=0    failed=0
 
 
 ## SSH to the master node
-```ssh kube@192.168.11.120```
+```ssh kube@172.29.4.20```
 
 Change the ip address to whatever you made the master.  The default username / password is kube / kubernetes
 
