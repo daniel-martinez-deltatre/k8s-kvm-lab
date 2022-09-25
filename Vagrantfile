@@ -14,13 +14,14 @@ NETWORK_PREFIX="172.29.4.2"
 #make sure libvirt, qemu, kvm etc are installed
 #make sure other hypervisers such as virtualbox are not
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
-IMAGE_NAME = "generic/ubuntu1804"
+IMAGE_NAME = "generic/ubuntu2004"
 
 #right now NUM_NODES must be under 9
 NUM_NODES = 3 
 
 Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
+    config.vm.network "public_network", auto_config: false
 
   config.vm.provider :libvirt do |libvirt|
     libvirt.cpus = 1
@@ -29,13 +30,16 @@ Vagrant.configure("2") do |config|
   end
       
     config.vm.define "master1" do |master|
-        master.vm.box = IMAGE_NAME
+      master.vm.box = IMAGE_NAME
 	    master.vm.network :public_network,
              :dev => "br0",
              :mode => "bridge",
              :type => "bridge",
-	     :ip => "#{NETWORK_PREFIX}0"
-        master.vm.hostname = "master"
+	           :ip => "#{NETWORK_PREFIX}0"
+      master.vm.hostname = "master"
+      master.vm.provision "shell",
+        run: "always",
+        inline: "route add default gw 172.29.4.1"
     end
 
     (1..NUM_NODES).each do |i|
@@ -47,6 +51,9 @@ Vagrant.configure("2") do |config|
               :type => "bridge",
               :ip => "#{NETWORK_PREFIX}#{i}"
             node.vm.hostname = "worker-#{i}"
+            node.vm.provision "shell",
+              run: "always",
+              inline: "route add default gw 172.29.4.1"
         end
     end
 end
