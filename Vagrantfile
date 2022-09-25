@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
 
   config.vm.provider :libvirt do |libvirt|
-    libvirt.cpus = 1
+    libvirt.cpus = 2
     libvirt.memory = 3072
     libvirt.driver = "kvm"
   end
