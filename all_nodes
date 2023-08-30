@@ -1,5 +1,7 @@
 #localhost ansible_host=127.0.0.1
 
 [kube-nodes]
-master1.kube.local ansible_host=172.29.4.21
-node1.kube.local ansible_host=172.29.4.22
+master1.kube.local ansible_host=172.29.5.190
+node1.kube.local ansible_host=172.29.5.191
+node2.kube.local ansible_host=172.29.5.192
+node3.kube.local ansible_host=172.29.5.193

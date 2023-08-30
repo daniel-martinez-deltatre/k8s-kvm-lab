@@ -1,12 +1,13 @@
 
 [kube-masters]
-master1.kube.local ansible_host=172.29.4.20
+master1.kube.local ansible_host=172.29.5.190
 
 [kube-nodes]
-worker1.kube.local ansible_host=172.29.4.21
-worker2.kube.local ansible_host=172.29.4.22
-worker3.kube.local ansible_host=172.29.4.23
+worker1.kube.local ansible_host=172.29.5.191
+worker2.kube.local ansible_host=172.29.5.192
+worker3.kube.local ansible_host=172.29.5.193
 
 [ubuntu:children]
 kube-masters
 kube-nodes
+
